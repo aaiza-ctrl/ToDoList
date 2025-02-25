@@ -1,0 +1,39 @@
+h1{
+    text-align: center;
+    color: #e0ae9d;
+  }
+  
+  body{
+    background-color: #006d77;
+    color: #403e3d;
+  }
+  
+  button{
+    background-color: #e0ae9d;
+    border-radius: 25px;
+  }
+  
+  .task{
+    background-color: #83c5be;
+    border-radius: 20px;
+    width: 31%;
+    padding: 0.5rem;
+  
+  }
+  
+  .taskButtons{
+    margin-left: auto;
+  }
+  
+  .taskHeading{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .taskContainer{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    gap: 1rem;
+  }

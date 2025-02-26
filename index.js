@@ -64,3 +64,13 @@ function addGlobalEventListener(type,selector, callback){
   addGlobalEventListener("click",".editTask",e=>{
     console.log("hello")
   })
+
+  //updating a task
+
+  addGlobalEventListener("click",".updateTask", e=>{
+    const taskTitle = document.getElementById("taskTitle").value;
+    const taskDescription = document.getElementById("taskDescription").value;
+    document.querySelector(".taskTitle").textContent = `${taskTitle}`;
+    document.querySelector(".taskDescription").textContent = `${taskDescription}`;
+  })
+  

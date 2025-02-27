@@ -62,12 +62,17 @@ function addGlobalEventListener(type,selector, callback){
   
   //editing a task
   addGlobalEventListener("click",".editTask",e=>{
-    console.log("hello")
+    const closestTask = e.target.closest(".task");
+    if (closestTask){
+      const updateForm = document.getElementById("updateForm");
+      updateForm.style.display = "block";
+    }
   })
 
   //updating a task
 
   addGlobalEventListener("click",".updateTask", e=>{
+    e.preventDefault();
     const taskTitle = document.getElementById("taskTitle").value;
     const taskDescription = document.getElementById("taskDescription").value;
     document.querySelector(".taskTitle").textContent = `${taskTitle}`;

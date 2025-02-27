@@ -4,8 +4,7 @@ function addGlobalEventListener(type,selector, callback){
     if(e.target.matches(selector)){
     callback(e)
   };
-  });
-  }
+  })}
   
   //deleting a task
   addGlobalEventListener("click", ".deleteTask", e=> {
@@ -22,47 +21,30 @@ function addGlobalEventListener(type,selector, callback){
   })
   
   //function creates task element
-  function createTaskElement(){
+  function createTaskElement(title="Task Title: ", description="Task Description: "){
     const task = document.createElement("div");
     task.classList.add("task");
     
-    const taskHeading = document.createElement("div");
-    taskHeading.classList.add("taskHeading");
-    
-    const taskTitle = document.createElement("h3");
-    taskTitle.classList.add("taskTitle");
-    taskTitle.textContent = "Task Title";
-    
-    const taskButtons = document.createElement("div");
-    taskButtons.classList.add("taskButtons");
-    
-    const editButton = document.createElement("button");
-    editButton.classList.add("editTask");
-    editButton.textContent = "Edit Task";
-    
-    const deleteButton = document.createElement("button");
-    deleteButton.classList.add("deleteTask");
-    deleteButton.textContent = "Delete Task";
-    
-    taskButtons.appendChild(editButton);
-    taskButtons.appendChild(deleteButton);
-    
-    taskHeading.appendChild(taskTitle);
-    taskHeading.appendChild(taskButtons);
-    
-    const taskDescription = document.createElement("p");
-    taskDescription.classList.add("taskDescription");
-    taskDescription.textContent = "Task Description";
-  
-    task.appendChild(taskHeading);
-    task.appendChild(taskDescription);
+    task.innerHTML = `
+    <div class="taskHeading">
+      <h3 class="taskTitle">${title}</h3> 
+      <div class="taskButtons">
+        <button class="editTask">Edit Task</button>
+        <button class="deleteTask">Delete Task</button>
+      </div>
+    </div>
+    <p class="taskDescription">${description}</p>
+  `;
   
     return task;
   }
+
+  let currentTask;
   
   //editing a task
   addGlobalEventListener("click",".editTask",e=>{
     const closestTask = e.target.closest(".task");
+    currentTask = e.target.closest(".task"); 
     if (closestTask){
       const updateForm = document.getElementById("updateForm");
       updateForm.style.display = "block";
@@ -71,11 +53,11 @@ function addGlobalEventListener(type,selector, callback){
 
   //updating a task
 
-  addGlobalEventListener("click",".updateTask", e=>{
+  addGlobalEventListener("click",".saveTaskChanges", e=>{
     e.preventDefault();
     const taskTitle = document.getElementById("taskTitle").value;
     const taskDescription = document.getElementById("taskDescription").value;
-    document.querySelector(".taskTitle").textContent = `${taskTitle}`;
-    document.querySelector(".taskDescription").textContent = `${taskDescription}`;
+    currentTask.querySelector(".taskTitle").textContent = `Task Title: ${taskTitle}`;
+    currentTask.querySelector(".taskDescription").textContent = `Task Description: ${taskDescription}`;
   })
   

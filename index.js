@@ -11,6 +11,7 @@ function addGlobalEventListener(type,selector, callback){
     const taskElement = e.target.closest(".task");
     if (taskElement){
       taskElement.remove();
+      saveTasksToLocalStorage();
     }
   });
   
@@ -18,6 +19,7 @@ function addGlobalEventListener(type,selector, callback){
   addGlobalEventListener("click",".addTask", e=>{
     const taskContainer = document.querySelector(".taskContainer");
     taskContainer.appendChild(createTaskElement());
+    saveTasksToLocalStorage();
   })
   
   //function creates task element
@@ -57,7 +59,40 @@ function addGlobalEventListener(type,selector, callback){
     e.preventDefault();
     const taskTitle = document.getElementById("taskTitle").value;
     const taskDescription = document.getElementById("taskDescription").value;
+    
+    if (taskTitle === "" || taskDescription === "") {
+      alert("Please fill out both the title and description.");
+      return; 
+    }
+
     currentTask.querySelector(".taskTitle").textContent = `Task Title: ${taskTitle}`;
     currentTask.querySelector(".taskDescription").textContent = `Task Description: ${taskDescription}`;
+
+    document.getElementById("updateForm").style.display = "none";
+
+    document.getElementById("updateForm").reset();
+
+    saveTasksToLocalStorage();
   })
   
+
+function saveTasksToLocalStorage(){
+  const tasks = Array.from(document.querySelectorAll(".task")).map(task => ({
+    title: task.querySelector(".taskTitle").textContent,
+    description: task.querySelector(".taskDescription").textContent,
+  })
+  );
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasksFromLocalStorage(){
+  const taskContainer = document.querySelector(".taskContainer");
+  taskContainer.innerHTML = "";
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks.forEach(task => {
+    const newTask = createTaskElement(task.title, task.description);
+    document.querySelector(".taskContainer").appendChild(newTask);
+  })
+}
+
+document.addEventListener("DOMContentLoaded", loadTasksFromLocalStorage);

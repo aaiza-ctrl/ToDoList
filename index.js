@@ -23,7 +23,7 @@ function addGlobalEventListener(type,selector, callback){
   })
   
   //function creates task element
-  function createTaskElement(title="Task Title: ", description="Task Description: "){
+  function createTaskElement(title="Title: ", description="Description: "){
     const task = document.createElement("div");
     task.classList.add("task");
     
@@ -65,8 +65,8 @@ function addGlobalEventListener(type,selector, callback){
       return; 
     }
 
-    currentTask.querySelector(".taskTitle").textContent = `Task Title: ${taskTitle}`;
-    currentTask.querySelector(".taskDescription").textContent = `Task Description: ${taskDescription}`;
+    currentTask.querySelector(".taskTitle").textContent = `Title: ${taskTitle}`;
+    currentTask.querySelector(".taskDescription").textContent = `Description: ${taskDescription}`;
 
     document.getElementById("updateForm").style.display = "none";
 

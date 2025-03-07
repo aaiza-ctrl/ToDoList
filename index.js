@@ -96,3 +96,11 @@ function loadTasksFromLocalStorage(){
 }
 
 document.addEventListener("DOMContentLoaded", loadTasksFromLocalStorage);
+
+//Allows the textbox to expand if large amounts of text are inputted, and allows users to click enter
+const textarea = document.getElementById("taskDescription");
+
+  textarea.addEventListener("input", () => {
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px"; 
+  });
